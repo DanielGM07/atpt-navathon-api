@@ -80,4 +80,18 @@ export class TowerLogService {
       throw error;
     }
   }
+
+  async findLatest(): Promise<TowerLog> {
+    const [latest] = await this.towerLogRepository.find({
+      where: {},                       // excluye soft-deleted por defecto
+      order: { log_time: 'DESC' },     // último por fecha
+      take: 1,
+    });
+
+    if (!latest) {
+      throw new NotFoundException('No tower logs found');
+    }
+
+    return latest;
+  }
 }

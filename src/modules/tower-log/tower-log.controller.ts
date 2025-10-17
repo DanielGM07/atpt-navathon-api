@@ -28,6 +28,11 @@ export class TowerLogController {
     return await this.towerLogService.findAll();
   }
 
+  @Get('latest')
+  async findLatest() {
+    return await this.towerLogService.findLatest();
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.towerLogService.findOne(id);
